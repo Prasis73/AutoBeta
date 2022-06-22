@@ -9,23 +9,39 @@ import '../pages/signUp.dart';
 class ApiService{
   static String _baseUrl="https://autonepalapi.herokuapp.com";
 
-  static Future<void> addAuto(Auto auto)async{
+  static Future addAuto(Auto auto)async{
       Uri requestUri=Uri.parse(_baseUrl+"/login");
       var response =await http.post(requestUri,body:auto.toMap());
       var decoded =jsonDecode(response.body);
 
       log(decoded.toString());
+
+      if(response.statusCode==200){
+        return decoded;
+      }else{
+        return decoded["message"].toString();
+      }
+   /*    var decoded =jsonDecode(response.body);
+
+      log(decoded.toString());
       log(decoded["success"].toString());
-      return decoded;
+      return decoded; */
   }
 
-   static Future<void> signUpAuto(SignUp signUp)async{
+   static Future<bool> signUpAuto(SignUp signUp)async{
       Uri requestUrii=Uri.parse(_baseUrl+"/signup");
       var responsee =await http.post(requestUrii,body:signUp.toMap());
-      var encodeFirst = json.encode(responsee.body);
+
+      if(responsee.statusCode==200){
+        return true;
+      }else{
+        return false;
+      }
+
+  /*     var encodeFirst = json.encode(responsee.body);
       var data = json.decode(encodeFirst);
     //  var decodedd =jsonDecode(responsee.body);
-      log(data.toString());
+      log(data.toString()); */
   }
 
   static Future<List<Auto>>fetchAuto(String userid)async{

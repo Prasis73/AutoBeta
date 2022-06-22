@@ -20,6 +20,11 @@ class _HomePageState extends State<HomePage> {
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
 
+  String json="";
+
+
+  
+
  
   @override
   Widget build(BuildContext context) {
@@ -29,12 +34,22 @@ class _HomePageState extends State<HomePage> {
           id:emailController.text,
           password:passwordController.text,
         );
-        Provider.of<AutoProvider>(context,listen:false).addAuto(newAuto);
+        Provider.of<AutoProvider>(context,listen:false).addAuto(newAuto).then((value){
+        
+          setState(() {
+            json=value["message"].toString();
+            if(value["success"]==true){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Signup()));
+            }
+          });
+
+        });
 
        
          }
 
     return Scaffold(
+      
       appBar: AppBar(
         title: Text("AutoNepal Beta App"),centerTitle: true,
       ),
@@ -63,10 +78,18 @@ class _HomePageState extends State<HomePage> {
                       hintText: "Password",
                      ), 
           ),
-          ElevatedButton(onPressed: (){Login();}, child: Text("Login")),
+          ElevatedButton(onPressed: (){Login();
+        /*   if(json=="true"){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Signup()));
+          } */
+          
+          }, child: Text("Login")),
           TextButton(onPressed: (){
-            Navigator.push(context, CupertinoPageRoute(builder: (context)=>Signup()));
-          }, child: Text("SingUp Here"))
+             print(json);
+      
+            // Navigator.push(context, CupertinoPageRoute(builder: (context)=>Signup()));
+          }, child: Text("SingUp Here")),
+          Text(json)
        
      
 

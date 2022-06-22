@@ -20,8 +20,8 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
 
-    File? _image;
-    File? _image1;
+    String? _image;
+    String? _image1;
   final picker = ImagePicker();
   final picker1 = ImagePicker();
   var imagelink="";
@@ -160,7 +160,7 @@ class _SignupState extends State<Signup> {
                                 source: ImageSource.gallery);
                             setState(() async {
                               if (pickFile != null) { 
-                                _image = File(pickFile.path);
+                                _image = File(pickFile.path).toString();
                              setState(() {
                                   imagelink = _image.toString();
                                 });
@@ -183,7 +183,7 @@ class _SignupState extends State<Signup> {
                             ],
                           )
                           ), 
-                           ElevatedButton(
+                     ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Colors.purple,
                           ),
@@ -192,7 +192,7 @@ class _SignupState extends State<Signup> {
                                 source: ImageSource.gallery);
                             setState(() async {
                               if (pickFile != null) { 
-                                _image1 = File(pickFile.path);
+                                _image1 = File(pickFile.path).toString();
                              setState(() {
                                   imagelink1 = _image1.toString();
                                 });
@@ -215,7 +215,7 @@ class _SignupState extends State<Signup> {
                             ],
                           )
                           ),
-       
+     
       
       
       

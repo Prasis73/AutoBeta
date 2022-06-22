@@ -22,10 +22,26 @@ class AutoProvider with ChangeNotifier{
    }
   
 
-    void addAuto(Auto auto){
+   Future addAuto(Auto auto){
       autos.add(auto);
       notifyListeners();
-      ApiService.addAuto(auto);
+      
+      return ApiService.addAuto(auto).then((value){
+       return value;
+      
+        print(value);
+        print(value["success"]);
+        if(value["success"]==true){
+          
+          print("cool");
+          print(value["token"]);
+        }
+        else{
+          print(value["message"]);
+        }
+     
+      });
+      
     }
     void signUpAuto(SignUp signUp){
       auth.add(signUp);
